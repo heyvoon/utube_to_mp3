@@ -1,0 +1,54 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>YOUTUBE 2 MP3 by Andre + VIDEOS</title>
+  
+  <script type='text/javascript' src='jquery-1.8.2.min.js'></script>
+     
+  </style>
+
+
+<script type='text/javascript'> 
+$(window).load(function(){
+var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/PL60038DE2D1B1A21C?v=2&max-results=5&alt=json&callback=?';
+/* var playListURL = 'http://gdata.youtube.com/feeds/api/videos?v=2&author=MelodicSexForMyEars'; */
+var videoURL= 'http://www.youtube.com/watch?v=';
+$.getJSON(playListURL, function(data) {
+    var list_data="";
+    $.each(data.feed.entry, function(i, item) {
+        var feedTitle = item.title.$t;
+        var feedURL = item.link[1].href;
+        var fragments = feedURL.split("/");
+        var videoID = fragments[fragments.length - 2];        
+        var url = videoURL + videoID;
+        // var nospaceTitle = feedTitle.replace(/\s/g,"_");
+        var thumb = "http://img.youtube.com/vi/"+ videoID +"/default.jpg";
+        var vdo = 'http://www.youtube.com/v/' + videoID;
+        // var vid = "http://www.youtube.com/v/"+ videoID +;
+        var offliberate = '<a href="http://www.snipmp3.com/?url='+ url +'" title="'+ feedTitle +'" target="_blank">SnipMP3 This! (Open New Tab!)<br>';
+        var snipmp3 = '<a href="http://offliberty.com/#'+ url +'" title="'+ feedTitle +'" target="_blank">Offliberate This! (Open New Tab!)<br>';
+        list_data += offliberate +''+ snipmp3 +'<a href="'+ url +'" title="'+ feedTitle +'">'+ feedTitle +'<br>'+ url +'</a><br><div class="videoURL"><object width="320" height="240"><param name="movie" value="' + vdo + '"&amp;hl=en_GB&amp;fs=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="' + vdo + '"&amp;hl=en_GB&amp;fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="320" height="240"></embed></object></div><br>';        
+
+    });
+    $(list_data).appendTo(".cont");
+});
+});
+       
+
+
+</script>
+
+
+</head>
+<body>
+
+<ul class="cont"></ul>
+  
+</body>
+
+
+</html>
+
